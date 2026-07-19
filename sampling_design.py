@@ -22,7 +22,8 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# --- Shared UI Components ---
+
+    # --- Updated UI Components (Fixes Raw HTML Rendering) ---
 def result_card(title, value, unit="", description="", variant="default"):
     styles = {
         "default": {"bg": "#EEF2FF", "border": "#C7D2FE", "text": "#3730A3"},
@@ -31,30 +32,33 @@ def result_card(title, value, unit="", description="", variant="default"):
         "success": {"bg": "#ECFDF5", "border": "#A7F3D0", "text": "#047857"}
     }
     s = styles.get(variant, styles["default"])
-    html = f"""
-    <div style="background-color: {s['bg']}; border: 1px solid {s['border']}; color: {s['text']}; padding: 20px; border-radius: 12px; margin-bottom: 15px;">
-        <h3 style="font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; opacity: 0.8; color: {s['text']};">{title}</h3>
-        <div style="display: flex; align-items: baseline; gap: 6px;">
-            <span style="font-size: 28px; font-weight: 900;">{value}</span>
-            <span style="font-size: 14px; font-weight: 500; opacity: 0.8;">{unit}</span>
-        </div>
-        {f'<p style="margin-top: 12px; color: #475569; font-size: 13px; line-height: 1.5;">{description}</p>' if description else ''}
-    </div>
-    """
-    st.markdown(html, unsafe_allow_html=True)
+    
+    desc_html = f'<p style="margin-top: 12px; color: #475569; font-size: 13px; line-height: 1.5;">{description}</p>' if description else ''
+    
+    # Flattening the string prevents the Markdown engine from misinterpreting white spaces
+    html = (
+        f'<div style="background-color: {s["bg"]}; border: 1px solid {s["border"]}; color: {s["text"]}; '
+        f'padding: 20px; border-radius: 12px; margin-bottom: 15px;">'
+        f'<h3 style="font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em; '
+        f'margin-bottom: 8px; opacity: 0.8; color: {s["text"]};">{title}</h3>'
+        f'<div style="display: flex; align-items: baseline; gap: 6px;">'
+        f'<span style="font-size: 28px; font-weight: 900;">{value}</span>'
+        f'<span style="font-size: 14px; font-weight: 500; opacity: 0.8;">{unit}</span>'
+        f'</div>{desc_html}</div>'
+    )
+    st.html(html)
 
 def insight_box(title, content_html):
-    html = f"""
-    <div style="background-color: #FFFBEB; border-left: 4px solid #F59E0B; padding: 20px; border-radius: 0 12px 12px 0; margin-top: 20px; margin-bottom: 20px;">
-        <div style="display: flex; align-items: center; gap: 8px; color: #78350F; font-weight: bold; margin-bottom: 12px;">
-            <span>ℹ️</span> <strong>{title}</strong>
-        </div>
-        <div style="color: #334155; font-size: 13.5px; line-height: 1.6;">
-            {content_html}
-        </div>
-    </div>
-    """
-    st.markdown(html, unsafe_allow_html=True)
+    html = (
+        f'<div style="background-color: #FFFBEB; border-left: 4px solid #F59E0B; padding: 20px; '
+        f'border-radius: 0 12px 12px 0; margin-top: 20px; margin-bottom: 20px;">'
+        f'<div style="display: flex; align-items: center; gap: 8px; color: #78350F; font-weight: bold; margin-bottom: 12px;">'
+        f'<span>ℹ️</span> <strong>{title}</strong>'
+        f'</div>'
+        f'<div style="color: #334155; font-size: 13.5px; line-height: 1.6;">{content_html}</div>'
+        f'</div>'
+    )
+    st.html(html)
 
 # Initialize data context to capture export strings
 if "report_data" not in st.session_state:
