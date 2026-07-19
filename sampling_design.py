@@ -425,9 +425,9 @@ elif module == "Tolerance Intervals":
         with sub2:
             result_card("Upper Bound", f"{mean + k * sd:.3f}", description=f"We are {(confLevel*100):.0f}% confident that at least {(popProp*100):.0f}% of all individual units fall below this value.")  #[cite: 1]
         
-        insight_box("Tolerance vs Confidence", """
+        insight_box("Tolerance vs Confidence", f"""
             <p>A Confidence Interval covers a population <em>parameter</em> (e.g., the mean). A Tolerance Interval covers a fixed <em>proportion of individual measurements</em> from the population.</p>
-            <p><strong>How to interpret:</strong> A {(popProp*100).toFixed(0)}%/{(confLevel*100).toFixed(0)}% tolerance interval means: "We are {(confLevel*100).toFixed(0)}% confident that at least {(popProp*100).toFixed(0)}% of all individual units from this process fall within these bounds." It answers the question <em>"Where do most individual values lie?"</em> rather than <em>"Where is the average?"</em></p>
+            <p><strong>How to interpret:</strong> A {popProp*100:.0f}%/{confLevel*100:.0f}% tolerance interval means: "We are {confLevel*100:.0f}% confident that at least {popProp*100:.0f}% of all individual units from this process fall within these bounds." It answers the question <em>"Where do most individual values lie?"</em> rather than <em>"Where is the average?"</em></p>
             <p>This makes tolerance intervals especially useful in manufacturing and quality control, where you need to verify that the bulk of production output meets specification limits — not just that the mean does.</p>
         """)  #[cite: 1]
 
