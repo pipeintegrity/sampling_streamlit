@@ -92,7 +92,7 @@ st.sidebar.markdown("---")
 
 if module == "T-Test":
     st.title("T-Test Calculation")
-    st.caption("Determine if group means differ significantly.")[cite: 1]
+    st.caption("Determine if group means differ significantly.")
     st.markdown("---")
     
     col1, col2 = st.columns(2)
@@ -679,7 +679,7 @@ elif module == "Binomial":
             <p><strong>Typical applications:</strong> pass/fail inspection (k defectives in n sampled items), survey responses, or attribute sampling in quality control.</p>
             <p><strong>Key properties:</strong> Mean = np, Variance = np(1−p). The distribution is symmetric when p = 0.5, right-skewed when p is small, and left-skewed when p is large.</p>
             <p><strong>Normal approximation:</strong> When np ≥ 5 and n(1−p) ≥ 5, the binomial is well-approximated by a normal distribution with mean np and std dev √(np(1−p)) — the basis of the Wald proportion CI.</p>
-        """)[cite: 1]
+        """)
 
 # --- SYSTEM WIDE REPORT EXPORTER PANEL ---
 st.sidebar.markdown("### Output Export Panel")
